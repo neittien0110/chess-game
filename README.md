@@ -7,18 +7,42 @@
 - Có thể tạo website game cờ vua trong 45 phút.
 
 > Tác giả cần 2 lần thực hiện promt mới thành công. Lần promt thứ nhất mã nguồn bị sai, nhưng sửa 1 chỗ thì gây ra lỗi ở 2 chỗ khác, và càng ngày càng nhiều lỗi.
+> Copilot có khuynh hướng monolithic, sửa lại code cũ to hơn, thay vì tiếp cận theo hướng microservice. 
 
 ## DÙNG THỬ SẢN PHẨM
 
 ![alt text](./assets/demo.png)
 
-## PROMT ĐỂ XÂY DỰNG WEBSITE
+## PROMT ĐỂ XÂY DỰNG WEB BASED GAME
 
-- Lời promt khởi động
+- Lời promt khởi động để tạo bàn cờ vua với khả năng di chuyển quân bằng ô textbox
 
   ```plain
     Hãy viết 1 website bằng React Typescript để có trò chơi cờ vua sao cho bàn cờ được hiển thị thành các ô vuông 8x8 và 32 quân cờ chia thành 2 màu đen và trắng. Bàn cờ được đánh tọa độ theo cột với các chữ cái từ A tới H và dòng được đánh số từ 1 tới 8 như trong ảnh. Người chơi có thể di chuyển quân cờ bằng mouse hoặc nhập tọa độ vào ô textbox
   ```
+  
+  __Kết luận__: với 1 lượt duy nhất và 12 lần promt thì đã tạo được game.
+
+- Lời promt để bổ sung bảng bên phải chứa các nước di chuyển
+
+  - Promt không tốt với hướng dẫn cồng kềnh.
+
+  ```plain
+      Promt: Hãy sửa lại để có lịch sử các bước đi, được ghi lại ở table bên phải
+      Answer: Tôi có thể cập nhật ChessBoard.tsx để hiển thị bảng lịch sử các nước đi của ván cờ ở bên phải. Dưới đây là cách làm:
+  ```
+
+  - Lời promt HIỆU QUẢ hơn
+  
+  ```plain
+    Promt:Hãy thêm vào giao diện một Table chứa lịch sử các lượt di chuyển. Và hãy tách thành một Component riêng là HistoryTable.tsx
+    Answer: Tôi đã tạo một component riêng HistoryTable.tsx để hiển thị lịch sử các lượt di chuyển của quân cờ. Điều này giúp giữ ChessBoard.tsx gọn gàng và dễ quản lý hơn.
+    Promt: Không. Hãy tích hợp HistoryTable.tsx vào App.tsx
+    Answer: Đã hiểu! Tôi sẽ tích hợp HistoryTable.tsx vào App.tsx thay vì ChessBoard.tsx.
+  ```
+  
+  __Kết luận__: sau 2 lần đập đi làm lại, lượt thứ 3 với 11 lần promt thì đã tạo được Bảng lịch sử.
+
 
 ## DÀNH CHO DEV
 
