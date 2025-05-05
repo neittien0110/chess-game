@@ -43,6 +43,16 @@
   
   __Kết luận__: sau 2 lần đập đi làm lại, lượt thứ 3 với 11 lần promt thì đã tạo được Bảng lịch sử.
 
+## PROMT ĐỂ TẠO PROMT
+
+  ```plain
+      Promt: Hãy tạo component mới phụ trách việc hỏi đáp với Microsoft Copilot, với một ô text box để có thể gửi 1 câu hỏi tới copilot, và 1 ô textbox hiện câu trả lời
+
+      Promt: Háy sửa CopilotChat.tsx để sao cho phần câu hỏi sẽ được truyền tới API của Copilot và đón nhận payload trả về, hiển thị lên textbox còn lại
+  ```
+
+  __Kết luận__: sau 1 lượt thực hiện với 8 lần promt thì đã tạo được cửa sổ bên trái hiện ra dòng promt để gửi tới các công cụ AI.
+  
 
 ## DÀNH CHO DEV
 
