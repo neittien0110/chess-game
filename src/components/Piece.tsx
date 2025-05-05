@@ -18,7 +18,7 @@ const Piece: React.FC<PieceProps> = ({ type, color }) => {
   return (
     <div
       style={{
-        fontSize: 32,
+        fontSize: 65,
         fontWeight: "bold",
         color: color === "w" ? "white" : "black",
       }}

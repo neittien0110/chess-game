@@ -19,7 +19,7 @@ const ChessBoard: React.FC<ChessBoardProps> = ({ board }) => {
       <div style={{ display: "flex" }}>
         <div style={{ width: 30 }}></div> {/* Ô trống để căn chỉnh */}
         {[...Array(8)].map((_, col) => (
-          <div key={`top-${col}`} style={{ width: 50, textAlign: "center", fontWeight: "bold" }}>
+          <div key={`top-${col}`} style={{ width: 70, textAlign: "center", fontWeight: "bold" }}>
             {String.fromCharCode(65 + col)}
           </div>
         ))}
@@ -48,7 +48,7 @@ const ChessBoard: React.FC<ChessBoardProps> = ({ board }) => {
       <div style={{ display: "flex" }}>
         <div style={{ width: 30 }}></div> {/* Ô trống bên trái */}
         {[...Array(8)].map((_, col) => (
-          <div key={`bottom-${col}`} style={{ width: 50, textAlign: "center", fontWeight: "bold" }}>
+          <div key={`bottom-${col}`} style={{ width: 70, textAlign: "center", fontWeight: "bold" }}>
             {String.fromCharCode(65 + col)}
           </div>
         ))}

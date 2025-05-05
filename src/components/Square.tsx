@@ -10,13 +10,13 @@ interface SquareProps {
 
 const Square: React.FC<SquareProps> = ({ row, col, type, color, children }) => {
   const isDark = (row + col) % 2 === 1;
-  const bgColor = isDark ? "brown" : "beige";
+  const bgColor = isDark ? "brown" : "darkkhaki";
 
   return (
     <div
       style={{
-        width: 50,
-        height: 50,
+        width: 70,
+        height: 70,
         backgroundColor: bgColor,
         display: "flex",
         justifyContent: "center",
