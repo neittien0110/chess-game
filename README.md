@@ -52,7 +52,7 @@
   ```
 
   __Kết luận__: sau 1 lượt thực hiện với 8 lần promt thì đã tạo được cửa sổ bên trái hiện ra dòng promt để gửi tới các công cụ AI.
-  
+
 
 ## DÀNH CHO DEV
 

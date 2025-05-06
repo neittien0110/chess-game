@@ -24,6 +24,20 @@ const App: React.FC = () => {
     }
   };
   
+  // Hàm này sẽ được gọi khi component được mount hoặc khi có sự thay đổi trong mảng dependencies
+  useEffect(() => {
+    // Đây là phần tương đương với hàm onload
+    console.log('Component App đã được mount.');
+
+    setMoveAsk("Một bàn cờ vua ở trạng thái bắt đầu. Tôi là quân trắng và bắt đầu di chuyển quân. Hãy xác nhận đã hiểu và không cần làm gì thêm.")
+    
+    // Cleanup function (tùy chọn): được chạy khi component unmount hoặc trước khi effect chạy lại
+    return () => {
+      console.log('Component App sẽ unmount hoặc effect sẽ chạy lại.');
+      // Thực hiện các tác vụ cleanup nếu cần
+    };
+  }, []); // Mảng dependencies rỗng [] có nghĩa là effect này chỉ chạy một lần sau lần render đầu tiên (tương tự onload)
+
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center",  }}>
       <h1>Trò chơi Cờ vua</h1>
