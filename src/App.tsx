@@ -18,8 +18,8 @@ const App: React.FC = () => {
       setMoveHistory(prevHistory => [...prevHistory, `${from} → ${to}`]); // Ghi nhận lịch sử nước đi    
       setCurrentTurn(prevTurn => (prevTurn === "w" ? "b" : "w")); // Chuyển lượt
       setMoveAsk(prevAsk =>  (currentTurn === "b")
-                ?(prevAsk + `. Sau đó, đối phương di chuyển quân từ ${from} tới ${to}. Tôi có thể làm gì tiếp theo?`)
-                :(`Tôi di chuyển quân từ ${from} tới ${to}`)
+                ?(prevAsk + `. Sau đó, quân đen đối phương di chuyển quân từ ${from} tới ${to}. Tôi có thể làm gì tiếp theo?`)
+                :(`Tôi, quân trắng, di chuyển quân từ ${from} tới ${to}`)
       ); // Cập nhật câu hỏi cho Copilot Chat 
     }
   };

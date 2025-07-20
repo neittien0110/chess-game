@@ -117,3 +117,18 @@ __Cách 2: đăng kí qua giao diện web Google Cloud Console__\
 __Cách 3: đăng kí qua thư viện lập trình__
 
 Tham khảo <https://ai.google.dev/gemini-api/docs/quickstart?lang=python&hl=vi#javascript>
+
+
+### Kiếm tra model LLM có được hỗ trợ không
+
+Nguyên lý: Gemini API thường ở URL: _https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}_. Tuy nhiên, Google có thể đổi chính sách nên một model có thể dùng tốt hôm nay, nhưng ngày mai sẽ không chạy được.\
+
+Giải pháp:
+
+- Vân sử dụng URL nói trên, nhưng không chỉ định rõ tham số model, để nhận được danh sách các model được phép sử dụng.
+
+  ```shell
+   curl https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}"
+  ```
+
+- Thay thế tên model mới vào URL.

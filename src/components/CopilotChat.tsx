@@ -59,7 +59,8 @@ const CopilotChat: React.FC<CopilotChatProps> = ({moveAsk}) => {
 
     // **Quan trọng:** Thay thế 'YOUR_GEMINI_API_KEY' bằng API key thực tế của bạn.
     const apiKey:string = 'AIzaSyB-FXF7hiNvyALzhlPFNKtpmCwv-PQ-Pyg';
-    const apiUrl: string = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+    const modelName: string = "gemini-1.5-flash";
+    const apiUrl: string = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
   
     try {
       const response = await fetch(apiUrl, {
@@ -75,8 +76,13 @@ const CopilotChat: React.FC<CopilotChatProps> = ({moveAsk}) => {
       });
   
       if (!response.ok) {
+        const errorData = await response.json(); // <-- Đọc JSON từ response body
+        // Kiểm tra xem errorData có thuộc tính 'error' và 'message' không
+        const errorMessage = errorData.error?.message || "Lỗi không xác định từ AI.";
+        // Hiển thị thông báo lỗi chi tiết ra responseTextbox
+        responseTextbox.value = `Đã xảy ra lỗi khi giao tiếp với AI: ${errorMessage}`;
         console.error(`Lỗi khi gọi Gemini API: ${response.status} - ${response.statusText}`);
-        responseTextbox.value = `Đã xảy ra lỗi khi giao tiếp với AI: ${response.statusText}`;
+        console.error("Chi tiết lỗi:", errorData);
         return;
       }
   
@@ -130,8 +136,8 @@ const CopilotChat: React.FC<CopilotChatProps> = ({moveAsk}) => {
       />
 
       <div style={{ display: "flex", gap: 10 }}>
-        <button onClick={askCopilot} style={{ padding: 5 }}>Gửi</button>
-        <button onClick={askGemini} style={{ padding: 5 }}>Hỏi Gemini</button>
+        <button onClick={askCopilot} disabled style={{ padding: 5 } }>Hỏi Copilot</button>
+        <button id="askGemini" onClick={askGemini} style={{ padding: 5 }}>Hỏi Gemini</button>
         <button onClick={copyToClipboard} style={{ padding: 5 }}>Copy to clipboard</button>
       </div>      
 
