@@ -53,8 +53,9 @@
 
   __Kết luận__: sau 1 lượt thực hiện với 8 lần promt thì đã tạo được cửa sổ bên trái hiện ra dòng promt để gửi tới các công cụ AI.
 
-
 ## DÀNH CHO DEV
+
+### CD trên GitHub
 
 Chương trình sử dụng thêm gói __gh-pages__ để triển khai sản phẩm trên github cho nhanh. Không liên quan tới sản phẩm. \
 
@@ -89,3 +90,30 @@ Tiếp theo, mỗi lần cần __deploy sản phẩm trên github, chỉ cần t
 ```
 
 Đợi vài giây và truy cập lại vào homepage để xem sản phẩm.
+
+### Đăng kí sử dụng Gemini API
+
+__Cách 1: đăng kí qua giao diện web đơn giản__\
+
+> Google AI Studio (https://aistudio.google.com/) là cách dễ nhất và phổ biến nhất để bạn bắt đầu với Gemini API và nhận API key. Khi bạn truy cập trang này và đăng nhập bằng tài khoản Google của mình, bạn sẽ thấy tùy chọn để "Get API Key" hoặc "Create API Key". Quá trình này rất nhanh chóng và chỉ cần vài bước nhấp chuột là bạn sẽ có được API key của mình để sử dụng
+
+1. __Truy cập Google AI Studio:__\
+Mở trình duyệt web của bạn và truy cập địa chỉ: https://aistudio.google.com/
+2. __Đăng nhập bằng tài khoản Google của bạn:__\
+Bạn sẽ cần đăng nhập bằng tài khoản Google cá nhân của mình. Nếu bạn chưa có, bạn có thể tạo một tài khoản Google mới.
+3. __Đồng ý với các điều khoản:__\
+Nếu đây là lần đầu tiên bạn truy cập Google AI Studio, bạn có thể sẽ được yêu cầu đọc và đồng ý với các Điều khoản dịch vụ của Google APIs và Điều khoản bổ sung của Gemini API. Hãy đọc kỹ và chấp nhận để tiếp tục.
+4. __Tạo API Key:__\
+Sau khi đăng nhập và chấp nhận điều khoản, bạn sẽ thấy giao diện Google AI Studio. Tìm và nhấp vào nút "Get API key" hoặc "Create API key" (thường nằm ở góc trên bên trái hoặc giữa trang).
+5. __Chọn hoặc tạo dự án:__\
+Bạn sẽ có tùy chọn để tạo API key trong một dự án Google Cloud mới hoặc sử dụng một dự án hiện có. Đối với việc bắt đầu, tạo một dự án mới thường là cách đơn giản nhất.
+6. __Sao chép API Key của bạn:__\
+Sau khi bạn nhấp để tạo khóa, API Key của bạn sẽ được tự động tạo và hiển thị trên màn hình. Đây là lần duy nhất bạn sẽ thấy toàn bộ khóa này, vì vậy hãy sao chép nó ngay lập tức và lưu trữ ở một nơi an toàn. Đừng chia sẻ khóa này công khai hoặc đưa vào mã nguồn mà bạn push lên các kho lưu trữ công khai như GitHub
+
+__Cách 2: đăng kí qua giao diện web Google Cloud Console__\
+
+> Là trung tâm quản lý toàn diện cho tất cả các dịch vụ và tài nguyên trong Google Cloud Platform (GCP), mà Gemini chỉ là 1 tính năng. Tại đây, bạn có quyền kiểm soát chi tiết hơn đối với các hạn chế của API Key (ví dụ: chỉ cho phép từ một địa chỉ IP hoặc một API cụ thể), điều này rất quan trọng cho môi trường production. Tuy nhiên, bạn cần phải tự mình kích hoạt các API cần thiết cho dự án.
+
+__Cách 3: đăng kí qua thư viện lập trình__
+
+Tham khảo <https://ai.google.dev/gemini-api/docs/quickstart?lang=python&hl=vi#javascript>

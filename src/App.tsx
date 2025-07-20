@@ -29,6 +29,7 @@ const App: React.FC = () => {
     // Đây là phần tương đương với hàm onload
     console.log('Component App đã được mount.');
 
+    /// Promt để khởi tạo một ván cờ mới
     setMoveAsk("Một bàn cờ vua ở trạng thái bắt đầu. Tôi là quân trắng và bắt đầu di chuyển quân. Hãy xác nhận đã hiểu và không cần làm gì thêm.")
     
     // Cleanup function (tùy chọn): được chạy khi component unmount hoặc trước khi effect chạy lại
