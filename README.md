@@ -42,6 +42,18 @@
   ```
   
   __Kết luận__: sau 2 lần đập đi làm lại, lượt thứ 3 với 11 lần promt thì đã tạo được Bảng lịch sử.
+  
+- 2 lượt promt để cho phép tương tác di chuyển quân cờ bằng mouse
+
+  ```plain
+  Hãy bổ sung hàm sự kiện để xác định được mouse được click vào Square nào và hiện ra alert
+  ```
+
+  ```plain
+  Hãy sửa lại ChessBoard để truyền vị trí quân cờ đang được tương tác bằng cách click chuột, để truyền vào component MoveInput
+  ```
+
+__Kết luận__: chỉ cần copy mã nguồn gợi ý và chạy được luôn.
 
 ## PROMT ĐỂ TẠO PROMT
 

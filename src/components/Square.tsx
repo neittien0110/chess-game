@@ -10,29 +10,53 @@
  * @returns JSX Element đại diện cho ô vuông trên bàn cờ. 
  */
 
-import React, { ReactNode } from "react";
+// Square.tsx
+import React from "react";
 
 interface SquareProps {
   row: number;
   col: number;
-  type?: string;
-  color?: "w" | "b";
-  children?: ReactNode;
+  children?: React.ReactNode;
+  onClick?: (row: number, col: number) => void;
+  isHighlighted?: boolean; // Thêm prop để highlight
+  highlightColor?: string; // Thêm prop cho màu highlight
 }
 
-const Square: React.FC<SquareProps> = ({ row, col, type, color, children }) => {
-  const isDark = (row + col) % 2 === 1;
-  const bgColor = isDark ? "brown" : "darkkhaki";
+const Square: React.FC<SquareProps> = ({
+  row,
+  col,
+  children,
+  onClick,
+  isHighlighted,
+  highlightColor = 'yellow' // Mặc định màu highlight
+}) => {
+  const isLight = (row + col) % 2 === 0;
+  const baseBackgroundColor = isLight ? "#f0d9b5" : "#b58863"; // Màu gỗ sáng và tối
+
+  // Áp dụng màu highlight nếu ô được highlight
+  const backgroundColor = isHighlighted ? highlightColor : baseBackgroundColor;
+
+  const handleClick = () => {
+    if (onClick) {
+      onClick(row, col);
+    }
+  };
 
   return (
     <div
+      onClick={handleClick}
       style={{
         width: 70,
         height: 70,
-        backgroundColor: bgColor,
+        backgroundColor: backgroundColor, // Sử dụng màu đã xác định (có thể là highlight)
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        cursor: "pointer",
+        border: "1px solid #888",
+        // Thêm hiệu ứng viền hoặc bóng đổ nhẹ khi được highlight để dễ nhìn hơn
+        boxShadow: isHighlighted ? '0 0 0 3px rgba(0, 0, 0, 0.5) inset' : 'none',
+        transition: 'background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
       }}
     >
       {children}

@@ -15,11 +15,27 @@ interface SquareData {
   color: "w" | "b";
 }
 
-interface ChessBoardProps {
-  board: (SquareData | null)[][];
+// Định nghĩa kiểu dữ liệu cho ô vuông được chọn
+interface SelectedSquare {
+  row: number;
+  col: number;
+  chessNotation: string;
 }
 
-const ChessBoard: React.FC<ChessBoardProps> = ({ board }) => {
+interface ChessBoardProps {
+  board: (SquareData | null)[][];
+  // Thêm prop cho hàm xử lý click vào ô
+  onSquareClick: (row: number, col: number) => void;
+  // Thêm props để nhận thông tin ô đã được chọn
+  selectedFrom: SelectedSquare | null;
+  selectedTo: SelectedSquare | null;
+}
+const ChessBoard: React.FC<ChessBoardProps> = ({
+  board,
+  onSquareClick,
+  selectedFrom,
+  selectedTo,
+}) => {
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       {/* Hiển thị chỉ số cột (A-H) trên cùng */}
@@ -40,11 +56,26 @@ const ChessBoard: React.FC<ChessBoardProps> = ({ board }) => {
           <div style={{ width: 30, textAlign: "center", fontWeight: "bold" }}>{8 - rowIndex}</div>
 
           {/* Hiển thị các ô của bàn cờ */}
-          {row.map((piece, colIndex) => (
-            <Square key={`${rowIndex}-${colIndex}`} row={rowIndex} col={colIndex}>
-              {piece && <Piece type={piece.type} color={piece.color} />}
-            </Square>
-          ))}
+          {row.map((piece, colIndex) => {
+            // Xác định xem ô hiện tại có phải là ô selectedFrom hay selectedTo không
+            const isSelectedFrom =
+              selectedFrom?.row === rowIndex && selectedFrom?.col === colIndex;
+            const isSelectedTo = selectedTo?.row === rowIndex && selectedTo?.col === colIndex;
+
+            return (
+              <Square
+                key={`${rowIndex}-${colIndex}`}
+                row={rowIndex}
+                col={colIndex}
+                onClick={onSquareClick} // Truyền hàm onSquareClick xuống Square
+                // Thêm prop `isHighlighted` cho `Square` để làm nổi bật ô
+                isHighlighted={isSelectedFrom || isSelectedTo}
+                highlightColor={isSelectedFrom ? 'yellow' : 'blue'} // Màu highlight khác nhau cho from/to
+              >
+                {piece && <Piece type={piece.type} color={piece.color} />}
+              </Square>
+            );
+          })}
 
           {/* Hiển thị số dòng (1-8) bên phải */}
           <div style={{ width: 30, textAlign: "center", fontWeight: "bold" }}>{8 - rowIndex}</div>
