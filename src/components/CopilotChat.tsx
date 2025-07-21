@@ -129,7 +129,7 @@ const CopilotChat: React.FC<CopilotChatProps> = ({moveAsk}) => {
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "left", width: 500, marginRight: 20 }}>
       <h3>Hướng dẫn sử dụng</h3>
-      <span style={{ color: "gray", marginLeft: 10, marginBottom: 0 }}>      
+      <span style={{ color: "gray", marginLeft: 10, marginBottom: 0, fontSizeAdjust: "0.5em" }}>      
       Quân trắng đi trước, sau đó đến quân đen.<br/><br/>
       <b>Cách chơi người-người</b>
       <p>
@@ -149,7 +149,7 @@ const CopilotChat: React.FC<CopilotChatProps> = ({moveAsk}) => {
         id="mypromt"
         value={moveAsk}
         placeholder="Nhập câu hỏi..."
-        style={{ width: "100%", height: 80, padding: 5, marginBottom: 10 }}
+        style={{ width: "100%", height: 80, padding: 5, margin: 0 }}
       />
 
       <div style={{ display: "flex", gap: 10 }}>
@@ -163,7 +163,7 @@ const CopilotChat: React.FC<CopilotChatProps> = ({moveAsk}) => {
         value={answer}
         readOnly
         placeholder="Câu trả lời sẽ hiển thị ở đây..."
-        style={{ width: "100%", height: 140, padding: 5, marginTop: 10 }}
+        style={{ width: "100%", height: 120, padding: 5, margin:5 }}
       />
     </div>
   );

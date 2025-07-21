@@ -141,8 +141,8 @@ const App: React.FC = () => {
   }, []); // Mảng dependencies rỗng [] có nghĩa là effect này chỉ chạy một lần sau lần render đầu tiên (tương tự onload)
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", }}>
-      <h1>Trò chơi Cờ vua</h1>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <h2>Trò chơi Cờ vua</h2>
       <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
 
         {/* Hiển thị AI Chat bên trái, với lời promt ở biến moveAsk */}
