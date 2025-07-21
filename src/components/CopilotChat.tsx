@@ -127,7 +127,22 @@ const CopilotChat: React.FC<CopilotChatProps> = ({moveAsk}) => {
   }
  
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 300, marginRight: 20 }}>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "left", width: 500, marginRight: 20 }}>
+      <h3>Hướng dẫn sử dụng</h3>
+      <span style={{ color: "gray", marginLeft: 10, marginBottom: 0 }}>      
+      Quân trắng đi trước, sau đó đến quân đen.<br/><br/>
+      <b>Cách chơi người-người</b>
+      <p>
+          Lần lượt click vào quân cờ của mình và click vào ô muốn di chuyển đến. Hoặc tương ứng, điền vị trí quân cờ và 
+          ô muốn di chuyển vào textbox bên dưới.
+      </p>
+
+      <b>Dùng AI gợi ý cho quân trắng</b>
+      <p>
+        Bấm nút <b>Hỏi Gemini</b> khi bắt đầu ván chơi mới và bấm <b>Hỏi Gemini</b> sau mỗi nước di chuyển của quân đen. Phần gợi ý di chuyển của quân trắng sẽ hiện ra bên dưới. <br/>
+        Đừng quên, dù là 1 lần, vì Gemini sẽ thiếu thông tin lượt di chuyển và đưa ra gợi ý sai.
+      </p>
+      </span>
       <h3>Nội dung Prompt để hỏi AI</h3>
       
       <textarea
@@ -148,7 +163,7 @@ const CopilotChat: React.FC<CopilotChatProps> = ({moveAsk}) => {
         value={answer}
         readOnly
         placeholder="Câu trả lời sẽ hiển thị ở đây..."
-        style={{ width: "100%", height: 100, padding: 5, marginTop: 10 }}
+        style={{ width: "100%", height: 140, padding: 5, marginTop: 10 }}
       />
     </div>
   );
