@@ -1,3 +1,11 @@
+/** 
+ * @file Hiển thị quan cờ trong bàn cờ vua
+ * @description Component này nhận vào loại quân cờ (type) và màu sắc (color) để hiển thị biểu tượng tương ứng.
+ * @example <Piece type="p" color="w" /> // Hiển thị quân Tốt trắng
+ * @example <Piece type="k" color="b" /> // Hiển thị quân Vua đen
+ * @see pieceSymbols Đối tượng ánh xạ loại quân cờ với biểu tượng Unicode tương ứng.
+  */
+
 import React from "react";
 
 interface PieceProps {

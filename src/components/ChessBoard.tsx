@@ -1,3 +1,10 @@
+/** 
+ * @file Vẽ bàn cờ cờ vua với các ô và quân cờ
+ * @description Component này hiển thị bàn cờ với các ô và quân cờ tương ứng.
+ * Mỗi ô được đại diện bởi component Square, và mỗi quân cờ được đại diện by component Piece.
+ * Bàn cờ được hiển thị với chỉ số cột (A-H) và chỉ số dòng (1-8) để người dùng dễ dàng nhận biết vị trí của các quân cờ.
+ * @returns {JSX.Element} Bàn cờ cờ vua với các ô và  quân cờ
+ */
 import React from "react";
 import Square from "./Square";
 import Piece from "./Piece";

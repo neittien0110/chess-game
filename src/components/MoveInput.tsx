@@ -1,11 +1,11 @@
 /** @file 
- * @description Component MoveInput để nhập nước đi trong trò chơi cờ vua thông qua 2
+ * @description Component MoveInput để nhập nước đi trong trò chơi cờ vua thông qua 2 textbox và nút Di chuyển.
+ * Người dùng sẽ nhập ô xuất phát và ô đích của quân cờ, sau đó nhấn nút Di chuyển để thực hiện nước đi.
  * @external Sử dụng các hàm từ utils/chessLogic để xử lý nước đi.
  * @author Nguyen Duc Tien
  */
 
 import React, { useState } from "react";
-import { makeMove } from "../utils/chessLogic";
 
 interface MoveInputProps {
   onMoveMade: (from: string, to: string) => void 
