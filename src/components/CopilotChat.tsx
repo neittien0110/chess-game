@@ -1,13 +1,15 @@
+/** @file 
+ * @description Component CopilotChat để tương tác với AI Copilot và Gemini.
+ * @external Copilot API và Gemini API, nhằm minh chứng cách gửi câu hỏi và nhận phản hồi từ AI.
+ * @requires @google/generative-ai package để sử dụng Gemini API. 
+ * @author Nguyen Duc Tien  
+ */
 import React, { useState } from "react";
 // components/Model.jsx
-const { GoogleGenerativeAI } = require("@google/generative-ai"); 
 
 interface CopilotChatProps {
   moveAsk: string | undefined;
 }
-
-const genAI = new GoogleGenerativeAI("AIzaSyBb4JF9r0kcncypDYb-wjeBO1LZ7ec8jFM");
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 const CopilotChat: React.FC<CopilotChatProps> = ({moveAsk}) => {
   const [answer, setAnswer] = useState("");
