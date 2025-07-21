@@ -55,6 +55,20 @@
 
 __Kết luận__: chỉ cần copy mã nguồn gợi ý và chạy được luôn.
 
+- Sửa lại bảng History để có thêm thông tin về loại quân cờ dã thực hiện dịch chuyển: đen/trắng
+
+  ```plain
+  hãy sửa lại App.tsx để truyền vào component HistoryTable thêm thông tin về lượt đi là của quân đen hay quân trắng
+  ```
+
+  > Trả lời rất phức tạp, đòi hòi sửa mã nguồn nhiều.
+
+```plain
+  Không tốt. Hãy giữ nguyên cách truyền tham số dạng string như hiện tại, nhưng thêm cú pháp đơn giản để chứa loại quân cờ. Ví dụ w: e2 → e4, sau đó phần hiển thị lịch sử chỉ cần phân tích chuỗi và tách cột
+  ```
+
+  > Tốt, ngắn gọn
+
 ## PROMT ĐỂ TẠO PROMT
 
   ```plain

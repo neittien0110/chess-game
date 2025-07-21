@@ -47,8 +47,37 @@ const App: React.FC = () => {
       // Cập nhật bàn cờ vào biến state, để dành cho compoent ChessBoard hiển thị
       setBoard(newBoardState);
 
+      // Lấy thông tin quân cờ từ mảng board  
+    // Trước khi gọi makeMove (lúc này board vẫn là trạng thái cũ)
+      const fromCol = from.charCodeAt(0) - 'a'.charCodeAt(0);
+      const fromRow = 8 - parseInt(from.charAt(1))        
+      let   clickedPiece : string // Lấy quân cờ tại ô xuất phát
+      // Chuyển đổi ký tự loại quân cờ thành tên đầy đủ dễ đọc
+      switch (board[fromRow][fromCol]?.type) {
+        case "p":
+          clickedPiece = "Tốt";
+          break;
+        case "r":
+          clickedPiece = "Xe";
+          break;
+        case "n":
+          clickedPiece = "Mã";
+          break;
+        case "b":
+          clickedPiece = "Tượng";
+          break;
+        case "q":
+          clickedPiece = "Hậu";
+          break;
+        case "k":
+          clickedPiece = "Vua";
+          break;
+        default:
+          clickedPiece = "Không xác định";
+      }
+
       // Cập nhật lịch sử nước đi bằng cách thêm nước đi mới vào cuối mảng lịch sử, để component HistoryTable hiển thị
-      setMoveHistory(prevHistory => [...prevHistory, `${from} → ${to}`]);
+      setMoveHistory(prevHistory => [...prevHistory, `${currentTurn}: ${clickedPiece}: ${from} → ${to}`]);
 
       // Xác định việc chuyển lượt đi giữa quân Trắng và quân Đen
       setCurrentTurn(prevTurn => (prevTurn === "w" ? "b" : "w"));

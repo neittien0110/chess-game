@@ -19,17 +19,30 @@ const HistoryTable: React.FC<HistoryTableProps> = ({ moveHistory }) => {
       <table border={1} style={{ borderCollapse: "collapse", width: "200px" }}>
         <thead>
           <tr>
+            <th>STT</th>
             <th>Lượt</th>
+            <th>Quân cờ</th>
             <th>Nước đi</th>
           </tr>
         </thead>
         <tbody>
-          {moveHistory.map((move, index) => (
-             <tr key={index} style={{ backgroundColor: index % 2 === 0 ? "#ffffff" : "#f2f2f2" }}>
-              <td>{index + 1}</td>
-              <td>{move}</td>
+          {moveHistory.map((moveString, index) => {
+          const parts = moveString.split(': '); // Tách chuỗi thành 3 phần: "w" hoặc "b", "k"|"n",  và "e2 → e4"
+          const turnIndicator = parts[0]; // "w" hoặc "b"
+          const pieceType = parts[1]; // "P" hoặc "N" hoặc "B" hoặc "R" hoặc "Q" hoặc "K"
+          const actualMove = parts[2];   // "e2 → e4"
+
+          const displayTurn = turnIndicator === 'w' ? 'Trắng' : 'Đen';
+
+          return (
+            <tr key={index}>
+              <td>{index+1}</td>
+              <td>{displayTurn}</td> {/* Cột cho lượt đi */}
+              <td>{pieceType}</td>    {/* Cột cho loại quân cờ */}
+              <td>{actualMove}</td>    {/* Cột cho nước đi */}
             </tr>
-          ))}
+          );
+        })}
         </tbody>
       </table>
     </div>
