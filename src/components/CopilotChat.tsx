@@ -18,7 +18,7 @@ const CopilotChat: React.FC<CopilotChatProps> = ({ moveAsk, setMoveAsk }) => {
   const [isShortAnsChecked, setIsShortAnsChecked] = useState(false);
 
   // Định nghĩa đoạn text bổ sung
-  const SHORT_ANS_TEXT = "Chỉ trả lời  đáp án theo cú pháp: tên quân cờ: vị trí cũ -> vị trí mới. Không giải thích";
+  const SHORT_ANS_TEXT = "Chỉ trả lời đáp án tốt nhất, gồm tên quân cờ: vị trí cũ -- vị trí mới";
 
   /**
    * Hàm xử lý sự kiện khi nút bấm Hỏi Copilot được nhấn.

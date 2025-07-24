@@ -176,5 +176,5 @@ const App: React.FC = () => {
     </div>
   );
 };
-z
+
 export default App;
