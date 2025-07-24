@@ -4,7 +4,7 @@ import ChessBoard from "./components/ChessBoard";
 import MoveInput from "./components/MoveInput";
 import { getBoardState, makeMove } from "./utils/chessLogic";
 import HistoryTable from "./components/HistoryTable";
-import CopilotChat from "./components/CopilotChat";
+import CopilotChat from "./components/CopilotChat"; // Đảm bảo đường dẫn đúng
 
 // Định nghĩa kiểu dữ liệu cho vị trí ô vuông được chọn
 interface SelectedSquare {
@@ -16,7 +16,7 @@ interface SelectedSquare {
 const App: React.FC = () => {
   const [board, setBoard] = useState(getBoardState());
   const [moveHistory, setMoveHistory] = useState<string[]>([]);
-  const [moveAsk, setMoveAsk] = useState<string>();
+  const [moveAsk, setMoveAsk] = useState<string | undefined>(); // Đã có state và setter ở đây
   const [currentTurn, setCurrentTurn] = useState<"w" | "b">("w"); // Trắng đi trước
 
   // State mới để lưu trữ ô vuông đã được click chọn
@@ -47,11 +47,11 @@ const App: React.FC = () => {
       // Cập nhật bàn cờ vào biến state, để dành cho compoent ChessBoard hiển thị
       setBoard(newBoardState);
 
-      // Lấy thông tin quân cờ từ mảng board  
-    // Trước khi gọi makeMove (lúc này board vẫn là trạng thái cũ)
+      // Lấy thông tin quân cờ từ mảng board
+      // Trước khi gọi makeMove (lúc này board vẫn là trạng thái cũ)
       const fromCol = from.charCodeAt(0) - 'a'.charCodeAt(0);
-      const fromRow = 8 - parseInt(from.charAt(1))        
-      let   clickedPiece : string // Lấy quân cờ tại ô xuất phát
+      const fromRow = 8 - parseInt(from.charAt(1));
+      let clickedPiece: string; // Lấy quân cờ tại ô xuất phát
       // Chuyển đổi ký tự loại quân cờ thành tên đầy đủ dễ đọc
       switch (board[fromRow][fromCol]?.type) {
         case "p":
@@ -84,7 +84,7 @@ const App: React.FC = () => {
 
       // Cập nhật câu hỏi promt cho AI Chat
       setMoveAsk(prevAsk => (currentTurn === "b")
-        ? (prevAsk + `. Sau đó, quân đen đối phương di chuyển quân từ ${from} tới ${to}. Tôi có thể làm gì tiếp theo?`)
+        ? ((prevAsk || "") + `. Sau đó, quân đen đối phương di chuyển quân từ ${from} tới ${to}. Tôi có thể làm gì tiếp theo?`)
         : (`Tôi, quân trắng, di chuyển quân từ ${from} tới ${to}`)
       );
     } else {
@@ -131,7 +131,7 @@ const App: React.FC = () => {
     console.log('Component App đã được mount.');
 
     /// Promt để khởi tạo một ván cờ mới
-    setMoveAsk("Một bàn cờ vua ở trạng thái bắt đầu. Tôi là quân trắng và bắt đầu di chuyển quân. Hãy xác nhận đã hiểu và không cần làm gì thêm.")
+    setMoveAsk("Một bàn cờ vua ở trạng thái bắt đầu. Tôi là quân trắng và bắt đầu di chuyển quân. Hãy xác nhận đã hiểu và không cần làm gì thêm.");
 
     // Cleanup function (tùy chọn): được chạy khi component unmount hoặc trước khi effect chạy lại
     return () => {
@@ -146,7 +146,8 @@ const App: React.FC = () => {
       <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
 
         {/* Hiển thị AI Chat bên trái, với lời promt ở biến moveAsk */}
-        <CopilotChat moveAsk={moveAsk} />
+        {/* TRUYỀN PROP setMoveAsk VÀO ĐÂY */}
+        <CopilotChat moveAsk={moveAsk} setMoveAsk={setMoveAsk} /> {/* <-- ĐÃ SỬA CHỮA */}
         <div>
           {/* Vẽ bàn cờ, dựa trên danh sách trong mảng các quân cờ board */}
           {/* Truyền hàm xử lý click vào ô và thông tin ô đang được chọn */}
@@ -175,5 +176,5 @@ const App: React.FC = () => {
     </div>
   );
 };
-
+z
 export default App;

@@ -104,9 +104,13 @@ Cụ thể thêm __gồm 4 thao tác cài đặt:__
     }
     ```
 
-3. Trên tài khoản github, trong Repository dự án, vào __Settings / Pages__, thiết lập __Homepage__ 
+    > __gh-pages__ cần trỏ tới thư mục sau biên dịch thường là __build__ hoặc __dist__. Cần sửa thiết lập này cho phù hợp với từng dự án.
 
-4. Vẫn ở giao diện __Pages__, lựa chọn __branch gh-pages__ chứa thành phẩm để deploy.\
+3. Nếu chưa có branch __gh-pages__, hãy tạo mới. Bỏ qua bước này nếu đã có.
+
+4. Trên tài khoản github, trong Repository dự án, vào __Settings / Pages__, thiết lập __Homepage__ 
+
+5. Vẫn ở giao diện __Pages__, lựa chọn __branch gh-pages__ chứa thành phẩm để deploy.\
 ![alt text](./assets//deploy_gh-pages.png)
 
 Tiếp theo, mỗi lần cần __deploy sản phẩm trên github, chỉ cần thực hiện 1 lệnh__:
