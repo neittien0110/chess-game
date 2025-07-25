@@ -141,37 +141,44 @@ const App: React.FC = () => {
   }, []); // Mảng dependencies rỗng [] có nghĩa là effect này chỉ chạy một lần sau lần render đầu tiên (tương tự onload)
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <h2>Trò chơi Cờ vua</h2>
-      <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-
-        {/* Hiển thị AI Chat bên trái, với lời promt ở biến moveAsk */}
-        {/* TRUYỀN PROP setMoveAsk VÀO ĐÂY */}
-        <CopilotChat moveAsk={moveAsk} setMoveAsk={setMoveAsk} /> {/* <-- ĐÃ SỬA CHỮA */}
-        <div>
-          {/* Vẽ bàn cờ, dựa trên danh sách trong mảng các quân cờ board */}
-          {/* Truyền hàm xử lý click vào ô và thông tin ô đang được chọn */}
+    // Áp dụng class Bootstrap 'container-fluid' để sử dụng toàn bộ chiều rộng màn hình.
+    // 'my-4' để thêm margin trên và dưới.
+    <div className="container-fluid my-4">
+      {/* Tiêu đề với class Bootstrap 'text-center' và 'mb-4' */}
+      <h2 className="text-center mb-4">Trò chơi Cờ vua</h2>
+      {/* Sử dụng 'row' để tạo hàng và 'justify-content-center' để căn giữa các cột */}
+      <div className="row justify-content-center">
+        {/* Cột cho CopilotChat. Sử dụng 'col-lg-4' để chiếm 1/3 màn hình trên desktop lớn,
+            và 'col-md-5' trên màn hình trung bình. */}
+        <div className="col-lg-4 col-md-5 mb-3"> {/* Thêm 'mb-3' để có khoảng cách dưới trên mobile/tablet */}
+          <CopilotChat moveAsk={moveAsk} setMoveAsk={setMoveAsk} />
+        </div>
+        {/* Cột cho Bàn cờ và Input di chuyển.
+            'col-md-auto' sẽ giúp nó chiếm đúng kích thước của bàn cờ,
+            'flex-grow-1' để nó có thể giãn ra nếu có không gian thừa. */}
+        <div className="col-md-auto flex-grow-1 mb-3"> {/* Thêm 'mb-3' */}
           <ChessBoard
             board={board}
             onSquareClick={handleSquareClick}
             selectedFrom={selectedFrom}
             selectedTo={selectedTo}
           />
-
-          {/* Hiển thị 2 textbox di chuyển và nút Di chuyển */}
-          <div style={{ marginTop: 20 }}>
+          {/* Thêm khoảng cách trên với 'mt-4' và căn giữa với 'text-center' */}
+          <div className="mt-4 text-center">
             Lượt đi: {currentTurn === "w" ? "Trắng" : "Đen"}
             <MoveInput
               onMoveMade={updateBoard}
-              fromValue={selectedFrom?.chessNotation || ''} // Hiển thị giá trị từ ô đã click
-              toValue={selectedTo?.chessNotation || ''}     // Hiển thị giá trị từ ô đã click
+              fromValue={selectedFrom?.chessNotation || ''}
+              toValue={selectedTo?.chessNotation || ''}
             />
           </div>
         </div>
-
-        {/* Vẽ bảng lịch sử nước di chuyển, dựa trên danh sách trong mảng moveHistory */}
-        <HistoryTable moveHistory={moveHistory} /> {/* Hiển thị lịch sử nước đi bên phải */}
-
+        {/* Cột cho Lịch sử nước đi.
+            Sử dụng 'col-lg-3' để chiếm ít không gian hơn trên desktop lớn,
+            và 'col-md-4' trên màn hình trung bình. */}
+        <div className="col-lg-3 col-md-4 mb-3"> {/* Thêm 'mb-3' */}
+          <HistoryTable moveHistory={moveHistory} />
+        </div>
       </div>
     </div>
   );

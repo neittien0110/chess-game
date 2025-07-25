@@ -1,16 +1,10 @@
-/** @file 
- * @description Component MoveInput để nhập nước đi trong trò chơi cờ vua thông qua 2 textbox và nút Di chuyển.
- * Người dùng sẽ nhập ô xuất phát và ô đích của quân cờ, sau đó nhấn nút Di chuyển để thực hiện nước đi.
- * @external Sử dụng các hàm từ utils/chessLogic để xử lý nước đi.
- * @author Nguyen Duc Tien
- */
 // MoveInput.tsx
 import React, { useState, useEffect } from "react";
 
 interface MoveInputProps {
   onMoveMade: (from: string, to: string) => void;
-  fromValue: string; // Thêm prop để nhận giá trị từ App
-  toValue: string;   // Thêm prop để nhận giá trị từ App
+  fromValue: string;
+  toValue: string;
 }
 
 const MoveInput: React.FC<MoveInputProps> = ({ onMoveMade, fromValue, toValue }) => {
@@ -27,9 +21,9 @@ const MoveInput: React.FC<MoveInputProps> = ({ onMoveMade, fromValue, toValue })
   }, [toValue]);
 
   const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault(); // Ngăn chặn form submit gây reload trang
+    event.preventDefault();
     if (from && to) {
-      onMoveMade(from.toLowerCase(), to.toLowerCase()); // Chuyển sang chữ thường trước khi gửi
+      onMoveMade(from.toLowerCase(), to.toLowerCase());
       // Không cần reset ở đây vì App sẽ reset sau khi nước đi được xử lý
     } else {
       alert("Vui lòng nhập cả ô xuất phát và ô đích.");
@@ -37,24 +31,30 @@ const MoveInput: React.FC<MoveInputProps> = ({ onMoveMade, fromValue, toValue })
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: "flex", gap: 10, marginTop: 10 }}>
+    // Sử dụng class Bootstrap 'input-group' và 'mb-3' để nhóm input và nút
+    <form onSubmit={handleSubmit} className="input-group mt-3">
+      {/* Input 'Từ' với class 'form-control' */}
       <input
         type="text"
+        className="form-control" // 'form-control' cho kiểu dáng input
         placeholder="Từ (e.g., e2)"
-        value={from} // Gắn giá trị từ state
+        value={from}
         onChange={(e) => setFrom(e.target.value)}
-        maxLength={2} // Chỉ cho phép 2 ký tự (ví dụ: a1, h8)
-        style={{ width: 80, padding: 5 }}
+        maxLength={2}
       />
+      {/* Input 'Đến' với class 'form-control' */}
       <input
         type="text"
+        className="form-control" // 'form-control' cho kiểu dáng input
         placeholder="Đến (e.g., e4)"
-        value={to} // Gắn giá trị từ state
+        value={to}
         onChange={(e) => setTo(e.target.value)}
         maxLength={2}
-        style={{ width: 80, padding: 5 }}
       />
-      <button type="submit" style={{ padding: '5px 15px' }}>Di chuyển</button>
+      {/* Nút Di chuyển với class 'btn' và 'btn-success' */}
+      <button type="submit" className="btn btn-success">
+        Di chuyển
+      </button>
     </form>
   );
 };

@@ -9,6 +9,7 @@
 - :thumbsup: AI giải thích chi tiết về một đoạn code có sẵn cực tót. 10/10đ.
 
 - :scream: promt rất nhiều lần, lên tới hàng trăm lượt đề hoàn thiện chương trình, chứ không phải chỉ hỏi vài câu mà có ngay sản phẩm. promt ra kết quả sai dự tính. 3/10đ.
+- :scream: tự ý đổi id của các đối tượng để đúng convention, nhưng gây lôi liên kết DOM. 0/10 đ --> __AI phù hợp với OOP hơn__. (Thêm một lý do để phải học OOP :heart: ).
 - :scream: mã nguồn do AI cũng cấp gặp nhiều lỗi về phiên bản thư viện, về tương tác. Mặc lỗi lập lại. 6/10.
 - :scream: chỉ xử lý các tác vụ ngắn. 7/10đ.
 
@@ -84,6 +85,25 @@ Với một sản phẩm, ý tưởng, làm việc kết hợp với AI có th�
   ```
 
 - Yêu cầu sửa chương trình để có giao diện reponsive. __Thất bại__.
+  
+  ```plain
+    Promt tệ hại: Hãy sửa trang web cho đẹp hơn.
+  ```
+  
+  ```plain
+    Promt tệ hại: Hãy sửa lại trang web để có đặc tính reponsive trên cả điện thoại và màn hình máy tính.
+  ```
+  
+  ```plain
+    Promt tệ hại: Hãy sửa lại trang web để có đặc tính reponsive, sao cho phần cột thông tin History sẽ không hiện ra, nhưng phần sidebar bên phải vẫn hiển thị đầy đủ.
+  ```
+
+  ```plain
+      Promt tốt hơn: Mã nguồn là các file đính kèm. Hãy tích hợp Bootstrap CDN theo cách đơn giản nhất.
+      Promt tiếp theo: Mã nguồn là các file đính kèm. Hãy tích hợp Bootstrap CDN theo cách đơn giản nhất.
+      Promt: Sửa lại layout bổ cục toàn bộ trang web trong file app.tsx sao cho full toàn hình. Chỉ sửa ở phần return, cấm sửa các hàm ở phía trước.
+      Promt: Ở bảng History, hãy xử lý để màu nền của các dòng chẵn, lẻ đổi màu bằng css
+  ```
 
 ## PROMT ĐỂ TẠO PROMT
 

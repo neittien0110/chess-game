@@ -20,31 +20,7 @@ const CopilotChat: React.FC<CopilotChatProps> = ({ moveAsk, setMoveAsk }) => {
   // Định nghĩa đoạn text bổ sung
   const SHORT_ANS_TEXT = "Chỉ trả lời đáp án tốt nhất, gồm tên quân cờ: vị trí cũ -- vị trí mới";
 
-  /**
-   * Hàm xử lý sự kiện khi nút bấm Hỏi Copilot được nhấn.
-   * @description Gửi yêu cầu đến Copilot API và hiển thị phản hồi trong textbox.
-   * @requires      CHƯA HOẠT ĐỘNG
-   * @returns
-   */
-  async function askCopilot() {
-    try {
-      const response = await fetch("https://copilot-api.example.com/query", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer YOUR_API_KEY",
-        },
-        body: JSON.stringify({ query: moveAsk }),
-      });
-
-      const data = await response.json();
-      setAnswer(data.answer || "Không có phản hồi từ Copilot.");
-    } catch (error) {
-      setAnswer("Lỗi kết nối đến Copilot.");
-    }
-  };
-
-  /**
+   /**
    * Hàm xử lý sự kiện khi nút bấm Hỏi Gemini được nhấn.
    * @description Gửi yêu cầu đến Gemini API và hiển thị phản hồi trong textbox.
    * @remark   PROMT: hãy sinh một đoạn mã typescript cho hàm sự kiện onlick của 1 nút bấm sao cho sẽ lấy nội dung trong 1 textbox có id="mypromt" và gửi nội dung đó tới Gemini API. Sau khi nhận được nội dung thì ghi vào textbox có id="airesponse"
@@ -156,9 +132,11 @@ const CopilotChat: React.FC<CopilotChatProps> = ({ moveAsk, setMoveAsk }) => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "left", width: 500, marginRight: 20 }}>
-      <h3>Hướng dẫn sử dụng</h3>
-      <span style={{ color: "gray", marginLeft: 10, marginBottom: 0, fontSizeAdjust: "0.5em" }}>
+    // Sử dụng class Bootstrap 'card' để tạo khung và 'p-3' để thêm padding
+    <div className="card p-3 shadow-sm">
+      {/* Tiêu đề với class Bootstrap 'card-title' và 'mb-3' */}
+      <h3 className="card-title mb-3">Hướng dẫn sử dụng</h3>
+      <span className="text-muted small mb-3">
         Quân trắng đi trước, sau đó đến quân đen.<br/><br/>
         <b>Cách chơi người-người</b>
         <p>
@@ -172,38 +150,48 @@ const CopilotChat: React.FC<CopilotChatProps> = ({ moveAsk, setMoveAsk }) => {
           Đừng quên, dù là 1 lần, vì Gemini sẽ thiếu thông tin lượt di chuyển và đưa ra gợi ý sai.
         </p>
       </span>
-      <h3>Nội dung Prompt để hỏi AI</h3>
+      {/* Tiêu đề con với class Bootstrap 'h5' */}
+      <h5 className="h5 mb-2">Nội dung Prompt để hỏi AI</h5>
 
+      {/* Textarea cho prompt, sử dụng class 'form-control' của Bootstrap */}
       <textarea
         id="mypromt"
+        className="form-control mb-3 bg-info-subtle" // 'form-control' cho kiểu dáng input/textarea
         value={moveAsk}
-        onChange={(e) => setMoveAsk(e.target.value)} // Cho phép chỉnh sửa prompt trực tiếp
+        onChange={(e) => setMoveAsk(e.target.value)}
         placeholder="Nhập câu hỏi..."
-        style={{ width: "100%", height: 80, padding: 5, margin: 0 }}
+        rows={4} // Đặt số hàng mặc định
       />
 
-      <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-        <button onClick={askCopilot} disabled style={{ padding: 5 } }>Hỏi Copilot</button>
-        <button id="askGemini" onClick={askGemini} style={{ padding: 5 }}>Hỏi Gemini</button>
-        <button onClick={copyToClipboard} style={{ padding: 5 }}>Copy to clipboard</button>
-        <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 5 }}>
+      {/* Nút với class 'btn' và 'btn-primary', 'btn-info', 'btn-secondary' */}
+      {/* Sử dụng 'd-flex', 'gap-2', 'align-items-center' cho flexbox và khoảng cách */}
+      <div className="d-flex gap-2 align-items-center mb-3">
+
+        <button id="askGemini" className="btn btn-primary" onClick={askGemini}>Hỏi Gemini</button>
+        <button className="btn btn-info" onClick={copyToClipboard}>Copy to clipboard</button>
+        {/* Checkbox với class Bootstrap 'form-check' và 'form-check-input' */}
+        <div className="form-check ms-auto"> {/* 'ms-auto' để đẩy sang phải */}
           <input
             type="checkbox"
+            className="form-check-input" // 'form-check-input' cho kiểu dáng checkbox
             id="shortans"
             name="shortans"
             checked={isShortAnsChecked}
             onChange={handleShortAnsChange}
-          /> {/* <-- Dấu gạch chéo ở đây */}
-          <label htmlFor="shortans">Gợi ý ngắn gọn</label>
+          />
+          <label className="form-check-label" htmlFor="shortans">Gợi ý ngắn gọn</label>
         </div>
       </div>
 
+      {/* Textarea cho câu trả lời của AI, sử dụng class 'form-control' */}
+      <h5 className="h5 mb-2">AI giúp quân trắng</h5>
       <textarea
         id="airesponse"
+        className="form-control bg-warning-subtle" // 'form-control' cho kiểu dáng input/textarea
         value={answer}
         readOnly
-        placeholder="Câu trả lời sẽ hiển thị ở đây..."
-        style={{ width: "100%", height: 120, padding: 5, margin:5 }}
+        rows={8} // Đặt số hàng mặc định
+        placeholder="Phản hồi của AI sẽ hiển thị ở đây..."
       />
     </div>
   );
