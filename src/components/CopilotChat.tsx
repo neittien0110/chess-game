@@ -13,7 +13,6 @@ interface CopilotChatProps {
 }
 
 const CopilotChat: React.FC<CopilotChatProps> = ({ moveAsk, setMoveAsk }) => {
-  const [answer, setAnswer] = useState("");
   // Thêm state để quản lý trạng thái của checkbox "Gợi ý ngắn gọn"
   const [isShortAnsChecked, setIsShortAnsChecked] = useState(false);
 
@@ -37,6 +36,9 @@ const CopilotChat: React.FC<CopilotChatProps> = ({ moveAsk, setMoveAsk }) => {
       console.error("Không tìm thấy textbox có id 'airesponse'.");
       return;
     }
+
+    // ** Xóa nội dung cũ
+    responseTextbox.value = "...đang đi vệ sinh, chờ tí...";
 
     const prompt = promptTextbox.value;
 
@@ -188,7 +190,6 @@ const CopilotChat: React.FC<CopilotChatProps> = ({ moveAsk, setMoveAsk }) => {
       <textarea
         id="airesponse"
         className="form-control bg-warning-subtle" // 'form-control' cho kiểu dáng input/textarea
-        value={answer}
         readOnly
         rows={8} // Đặt số hàng mặc định
         placeholder="Phản hồi của AI sẽ hiển thị ở đây..."
