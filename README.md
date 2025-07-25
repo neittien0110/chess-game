@@ -2,7 +2,7 @@
 
 ## Lời giới thiệu
 
-Đây là website giúp bạn có thể chơi cờ vua với máy tính. Toàn bộ quá trình đều được thực hiện qua AI với công cụ [Microsoft Copilot](https://copilot.cloud.microsoft/). Trải nghiệm cho thấy rằng
+Đây là website giúp bạn có thể chơi cờ vua với máy tính. Toàn bộ quá trình đều được thực hiện qua AI với công cụ [Google Gemini](http://gemini.google.com/). Trải nghiệm cho thấy rằng
 
 - :thumbsup: Có thể tạo website game cờ vua trong 45 phút. 10/10đ
 - :thumbsup: thêm 3 ngày để hoàn chỉnh chương trình về giao diện, cách tương tác, UI/UX. 7/10đ.
