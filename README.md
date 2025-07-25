@@ -2,16 +2,36 @@
 
 ## Lời giới thiệu
 
-Đây là website giúp bạn có thể chơi cờ vua với máy tính. Toàn bộ quá trình đều được thực hiện qua AI với công cụ [Microsoft Copilot](https://copilot.cloud.microsoft/) nhằm chứng minh răng:
+Đây là website giúp bạn có thể chơi cờ vua với máy tính. Toàn bộ quá trình đều được thực hiện qua AI với công cụ [Microsoft Copilot](https://copilot.cloud.microsoft/). Trải nghiệm cho thấy rằng
 
-- Có thể tạo website game cờ vua trong 45 phút.
+- :thumbsup: Có thể tạo website game cờ vua trong 45 phút. 10/10đ
+- :thumbsup: thêm 3 ngày để hoàn chỉnh chương trình về giao diện, cách tương tác, UI/UX. 7/10đ.
+- :thumbsup: AI giải thích chi tiết về một đoạn code có sẵn cực tót. 10/10đ.
 
-> Tác giả cần 2 lần thực hiện promt mới thành công. Lần promt thứ nhất mã nguồn bị sai, nhưng sửa 1 chỗ thì gây ra lỗi ở 2 chỗ khác, và càng ngày càng nhiều lỗi.
-> Copilot có khuynh hướng monolithic, sửa lại code cũ to hơn, thay vì tiếp cận theo hướng microservice. 
+- :scream: promt rất nhiều lần, lên tới hàng trăm lượt đề hoàn thiện chương trình, chứ không phải chỉ hỏi vài câu mà có ngay sản phẩm. promt ra kết quả sai dự tính. 3/10đ.
+- :scream: mã nguồn do AI cũng cấp gặp nhiều lỗi về phiên bản thư viện, về tương tác. Mặc lỗi lập lại. 6/10.
+- :scream: chỉ xử lý các tác vụ ngắn. 7/10đ.
+
+## Kết luận sơ bộ
+
+__Chắc chắn nên sử dụng AI__
+
+- Tác giả cần 2 lần thực hiện promt mới thành công ở mức cơ bản, chơi được cờ vua. Lần promt thứ nhất mã nguồn bị sai, nhưng sửa 1 chỗ thì gây ra lỗi ở 2 chỗ khác, và càng ngày càng nhiều lỗi.
+- Copilot/Gemini có khuynh hướng phức tạp hóa dần kết quả, càng gợi ý thì càng phình to chương trình
+
+Với một sản phẩm, ý tưởng, làm việc kết hợp với AI có thể theo lộ trình/roadmap là:
+
+| STT| Việc | Đối tượng thực hiện |
+|--:|--|--|
+| 1 | Phân tích, thiết kế, chia nhỏ giai đoạn | Người thực hiện theo kiểu topdown |
+| 2 | Tạo ra phần khung chương trình với framework, architecture, layout | Người thực hiện. Hỏi thêm AI để sửa khung cho pro hơn, bổ sung ghi chú, nhưng phải cần thận xem lại và tự kiểm soát được.
+| 3 | Hoàn thành từng phần chức năng | AI thực hiện. Người cần mô tả rõ input, output trong các lời promt. Cách hiệu quả nhất là đưa hàm ở dạng [test-driven](#ví-dụ-về-test-driven) rồi yêu cầu AI hoàn thiện.|
+
+- Không cần biết chơi cờ vua. Chỉ cần gửi mô tả các nước đi hiện thời cho các mô hình ngôn ngữ lớn LLM, sau đó lấy kết quả về hiển thị --> sự lệ thuộc AI. 
 
 ## DÙNG THỬ SẢN PHẨM
 
-![alt text](./assets/demo.png)
+[![alt text](./assets/demo.png)](https://neittien0110.github.io/chess-game/)
 
 ## PROMT ĐỂ XÂY DỰNG WEB BASED GAME
 
@@ -21,23 +41,21 @@
     Hãy viết 1 website bằng React Typescript để có trò chơi cờ vua sao cho bàn cờ được hiển thị thành các ô vuông 8x8 và 32 quân cờ chia thành 2 màu đen và trắng. Bàn cờ được đánh tọa độ theo cột với các chữ cái từ A tới H và dòng được đánh số từ 1 tới 8 như trong ảnh. Người chơi có thể di chuyển quân cờ bằng mouse hoặc nhập tọa độ vào ô textbox
   ```
   
-  __Kết luận__: với 1 lượt duy nhất và 12 lần promt thì đã tạo được game.
+  __Kết luận__: bỏ qua 1 lượt promt bị sai, thì với lượt thứ 2 gồm 12 lần promt thì đã tạo được game.
 
 - Lời promt để bổ sung bảng bên phải chứa các nước di chuyển
 
   - Promt không tốt với hướng dẫn cồng kềnh.
 
   ```plain
-      Promt: Hãy sửa lại để có lịch sử các bước đi, được ghi lại ở table bên phải
+      Promt không tốt: Hãy sửa lại để có lịch sử các bước đi, được ghi lại ở table bên phải
       Answer: Tôi có thể cập nhật ChessBoard.tsx để hiển thị bảng lịch sử các nước đi của ván cờ ở bên phải. Dưới đây là cách làm:
   ```
 
-  - Lời promt HIỆU QUẢ hơn
-  
   ```plain
-    Promt:Hãy thêm vào giao diện một Table chứa lịch sử các lượt di chuyển. Và hãy tách thành một Component riêng là HistoryTable.tsx
+    Promt hiệu quả:Hãy thêm vào giao diện một Table chứa lịch sử các lượt di chuyển. Và hãy tách thành một Component riêng là HistoryTable.tsx
     Answer: Tôi đã tạo một component riêng HistoryTable.tsx để hiển thị lịch sử các lượt di chuyển của quân cờ. Điều này giúp giữ ChessBoard.tsx gọn gàng và dễ quản lý hơn.
-    Promt: Không. Hãy tích hợp HistoryTable.tsx vào App.tsx
+    Promt hiệu quả: Không. Hãy tích hợp HistoryTable.tsx vào App.tsx
     Answer: Đã hiểu! Tôi sẽ tích hợp HistoryTable.tsx vào App.tsx thay vì ChessBoard.tsx.
   ```
   
@@ -46,28 +64,26 @@
 - 2 lượt promt để cho phép tương tác di chuyển quân cờ bằng mouse
 
   ```plain
-  Hãy bổ sung hàm sự kiện để xác định được mouse được click vào Square nào và hiện ra alert
+    Promt: Hãy bổ sung hàm sự kiện để xác định được mouse được click vào Square nào và hiện ra alert
   ```
 
   ```plain
-  Hãy sửa lại ChessBoard để truyền vị trí quân cờ đang được tương tác bằng cách click chuột, để truyền vào component MoveInput
+    Promt: Hãy sửa lại ChessBoard để truyền vị trí quân cờ đang được tương tác bằng cách click chuột, để truyền vào component MoveInput
   ```
 
-__Kết luận__: chỉ cần copy mã nguồn gợi ý và chạy được luôn.
+  __Kết luận__: chỉ cần copy mã nguồn gợi ý và chạy được luôn.
 
 - Sửa lại bảng History để có thêm thông tin về loại quân cờ dã thực hiện dịch chuyển: đen/trắng
 
   ```plain
-  hãy sửa lại App.tsx để truyền vào component HistoryTable thêm thông tin về lượt đi là của quân đen hay quân trắng
+    Promt không tốt: hãy sửa lại App.tsx để truyền vào component HistoryTable thêm thông tin về lượt đi là của quân đen hay quân trắng
+  ```
+  
+  ```plain
+    Promt hiệu quả: Hãy giữ nguyên cách truyền tham số dạng string như hiện tại, nhưng thêm cú pháp đơn giản để chứa loại quân cờ. Ví dụ w: e2 → e4, sau đó phần hiển thị lịch sử chỉ cần phân tích chuỗi và tách cột
   ```
 
-  > Trả lời rất phức tạp, đòi hòi sửa mã nguồn nhiều.
-
-```plain
-  Không tốt. Hãy giữ nguyên cách truyền tham số dạng string như hiện tại, nhưng thêm cú pháp đơn giản để chứa loại quân cờ. Ví dụ w: e2 → e4, sau đó phần hiển thị lịch sử chỉ cần phân tích chuỗi và tách cột
-  ```
-
-  > Tốt, ngắn gọn
+- Yêu cầu sửa chương trình để có giao diện reponsive. __Thất bại__.
 
 ## PROMT ĐỂ TẠO PROMT
 
@@ -148,7 +164,6 @@ __Cách 3: đăng kí qua thư viện lập trình__
 
 Tham khảo <https://ai.google.dev/gemini-api/docs/quickstart?lang=python&hl=vi#javascript>
 
-
 ### Kiếm tra model LLM có được hỗ trợ không
 
 Nguyên lý: Gemini API thường ở URL: _https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}_. Tuy nhiên, Google có thể đổi chính sách nên một model có thể dùng tốt hôm nay, nhưng ngày mai sẽ không chạy được.\
@@ -162,3 +177,35 @@ Giải pháp:
   ```
 
 - Thay thế tên model mới vào URL.
+
+### Ví dụ về Test driven
+
+```C
+  /** 
+    * Hàm chuyển đổi ngày dương lịch --> âm lịch
+    * @param ngay_duong Ngày dương lịch. Ví dụ 5.
+    */
+  int DuongLich2AmLich(int ngay_duong, int thang_duong, int nam_duong, int * ngay_am, int * thang_am, char * nam_am)
+  {   
+      //TODO by AI
+  }
+
+  /** 
+    * Test suite kiểm tra chuyển đổi ngày dương lịch sang âm lịch
+    */
+  void Test_DuongLich2AmLich()
+  {
+    int ngay_am;
+    int thang_am;
+    char nam_am[200];
+    DuongLich2AmLich(25, 11, 2009, &ngay_am, &thang_am, &nam_am);
+    assert(ngay_am == 10  && thang_am == 10 && strcmp(nam_am,"ky suu") );
+
+    DuongLich2AmLich(20, 11, 2012, &ngay_am, &thang_am, &nam_am);
+    assert(ngay_am == 7  && thang_am == 10 && strcmp(nam_am,"nham_thin") );
+
+    DuongLich2AmLich(15, 1, 2021, &ngay_am, &thang_am, &nam_am);
+    assert(ngay_am == 03  && thang_am == 12 && strcmp(nam_am,"canh ty") );
+  }
+
+```  
