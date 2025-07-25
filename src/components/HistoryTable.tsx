@@ -16,6 +16,14 @@ const HistoryTable: React.FC<HistoryTableProps> = ({ moveHistory }) => {
   return (
     // Sử dụng class Bootstrap 'card' và 'p-3'
     <div className="card p-3 shadow-sm">
+      <h3 className="card-title mb-3">Mã nguồn</h3>
+      <a className="icon-link" href="https://github.com/neittien0110/chess-game">
+        <svg xmlns="http://www.w3.org/2000/svg" className="bi" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
+        </svg>
+        GitHub
+      </a>
+      <br/>
       {/* Tiêu đề với class 'card-title' và 'mb-3' */}
       <h3 className="card-title mb-3">Lịch sử nước đi</h3>
       {/* Áp dụng các class Bootstrap cho bảng: 'table', 'table-bordered', 'table-hover', 'table-sm' */}
