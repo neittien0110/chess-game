@@ -10,14 +10,17 @@ import React, { useState } from "react";
 interface CopilotChatProps {
   moveAsk: string | undefined;
   setMoveAsk: React.Dispatch<React.SetStateAction<string | undefined>>; // Thêm prop để set moveAsk từ component cha
+  isShortAns: boolean;
+  setShortAns: React.Dispatch<React.SetStateAction<boolean>>;
+  allowAskAI: boolean;
+  setAllowAskAI: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CopilotChat: React.FC<CopilotChatProps> = ({ moveAsk, setMoveAsk }) => {
-  // Thêm state để quản lý trạng thái của checkbox "Gợi ý ngắn gọn"
-  const [isShortAnsChecked, setIsShortAnsChecked] = useState(false);
+export const SHORT_ANS_TEXT = "Chỉ trả lời đáp án tốt nhất, gồm tên quân cờ: vị trí cũ -- vị trí mới";
+
+const CopilotChat: React.FC<CopilotChatProps> = ({ moveAsk, setMoveAsk, isShortAns, setShortAns, allowAskAI, setAllowAskAI }) => {
 
   // Định nghĩa đoạn text bổ sung
-  const SHORT_ANS_TEXT = "Chỉ trả lời đáp án tốt nhất, gồm tên quân cờ: vị trí cũ -- vị trí mới";
 
    /**
    * Hàm xử lý sự kiện khi nút bấm Hỏi Gemini được nhấn.
@@ -85,6 +88,7 @@ const CopilotChat: React.FC<CopilotChatProps> = ({ moveAsk, setMoveAsk }) => {
       console.error("Lỗi không xác định:", error);
       responseTextbox.value = `Đã xảy ra lỗi: ${error}`;
     }
+    setAllowAskAI(false); //Chỉ gửi 1 lần
   }
 
   /**
@@ -115,7 +119,7 @@ const CopilotChat: React.FC<CopilotChatProps> = ({ moveAsk, setMoveAsk }) => {
    */
   const handleShortAnsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const checked = event.target.checked;
-    setIsShortAnsChecked(checked);
+    setShortAns(checked);
 
     let newMoveAsk = moveAsk || ""; // Đảm bảo moveAsk không phải là undefined
 
@@ -156,6 +160,18 @@ const CopilotChat: React.FC<CopilotChatProps> = ({ moveAsk, setMoveAsk }) => {
       <h5 className="h5 mb-2">Nội dung Prompt để hỏi AI</h5>
 
       {/* Textarea cho prompt, sử dụng class 'form-control' của Bootstrap */}
+      {/* Checkbox với class Bootstrap 'form-check' và 'form-check-input' */}
+        <div className="form-check ms-auto"> {/* 'ms-auto' để đẩy sang phải */}
+          <input
+            type="checkbox"
+            className="form-check-input" // 'form-check-input' cho kiểu dáng checkbox
+            id="shortans"
+            name="shortans"
+            checked={isShortAns}
+            onChange={handleShortAnsChange}
+          />
+          <label className="form-check-label" htmlFor="shortans">Gợi ý ngắn, vào nước đi luôn</label>
+        </div>      
       <textarea
         id="mypromt"
         className="form-control mb-3 bg-info-subtle" // 'form-control' cho kiểu dáng input/textarea
@@ -168,21 +184,10 @@ const CopilotChat: React.FC<CopilotChatProps> = ({ moveAsk, setMoveAsk }) => {
       {/* Nút với class 'btn' và 'btn-primary', 'btn-info', 'btn-secondary' */}
       {/* Sử dụng 'd-flex', 'gap-2', 'align-items-center' cho flexbox và khoảng cách */}
       <div className="d-flex gap-2 align-items-center mb-3">
-
-        <button id="askGemini" className="btn btn-primary" onClick={askGemini}>Hỏi Gemini</button>
-        <button className="btn btn-info" onClick={copyToClipboard}>Copy to clipboard</button>
-        {/* Checkbox với class Bootstrap 'form-check' và 'form-check-input' */}
-        <div className="form-check ms-auto"> {/* 'ms-auto' để đẩy sang phải */}
-          <input
-            type="checkbox"
-            className="form-check-input" // 'form-check-input' cho kiểu dáng checkbox
-            id="shortans"
-            name="shortans"
-            checked={isShortAnsChecked}
-            onChange={handleShortAnsChange}
-          />
-          <label className="form-check-label" htmlFor="shortans">Gợi ý ngắn gọn</label>
-        </div>
+        <button id="askGemini" className="btn btn-primary" onClick={askGemini} disabled={!allowAskAI}>Hỏi Gemini</button>
+        <div className="vr"/>
+        <button className="btn btn-info fs-6 p-0 " onClick={copyToClipboard}>Copy to clipboard</button>
+        <a href="https://gemini.google.com/app?hl=vi" target="blank">Mở Gemini</a>
       </div>
 
       {/* Textarea cho câu trả lời của AI, sử dụng class 'form-control' */}

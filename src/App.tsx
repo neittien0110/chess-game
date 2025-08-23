@@ -4,7 +4,7 @@ import ChessBoard from "./components/ChessBoard";
 import MoveInput from "./components/MoveInput";
 import { getBoardState, makeMove } from "./utils/chessLogic";
 import HistoryTable from "./components/HistoryTable";
-import CopilotChat from "./components/CopilotChat";
+import CopilotChat, {SHORT_ANS_TEXT} from "./components/CopilotChat";
 
 interface SelectedSquare {
   row: number;
@@ -17,9 +17,10 @@ const App: React.FC = () => {
   const [moveHistory, setMoveHistory] = useState<string[]>([]);
   const [moveAsk, setMoveAsk] = useState<string | undefined>();
   const [currentTurn, setCurrentTurn] = useState<"w" | "b">("w");
-
+  const [isShortAns, setShortAns] = useState<boolean>(true);
   const [selectedFrom, setSelectedFrom] = useState<SelectedSquare | null>(null);
   const [selectedTo, setSelectedTo] = useState<SelectedSquare | null>(null);
+  const [allowAskAI, setAllowAskAI] = useState<boolean>(true);
   
   // ✅ Thêm state mới cho thông báo lỗi
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -50,9 +51,11 @@ const App: React.FC = () => {
       setMoveHistory(prevHistory => [...prevHistory, `${currentTurn}: ${clickedPiece}: ${from} → ${to}`]);
       setCurrentTurn(prevTurn => (prevTurn === "w" ? "b" : "w"));
       setMoveAsk(prevAsk => (currentTurn === "b")
-        ? ((prevAsk || "") + `. Sau đó, quân đen đối phương di chuyển quân từ ${from} tới ${to}. Tôi có thể làm gì tiếp theo?`)
-        : (`Tôi, quân trắng, di chuyển quân từ ${from} tới ${to}`)
+        ? ((prevAsk || "") + `. Sau đó, quân đen đối phương di chuyển quân từ ${from} tới ${to}. Tôi có thể làm gì tiếp theo? ` + ((isShortAns)?SHORT_ANS_TEXT:"")) 
+        : (`Tôi, quân trắng, di chuyển quân từ ${from} tới ${to}.`)
       );
+      // Nếu là quân đen vừa đi thì hỏi AI.
+      setAllowAskAI(currentTurn === "b");
     } else {
       // ✅ Thay thế alert() bằng việc cập nhật state lỗi
       setErrorMessage("Nước đi không hợp lệ. Vui lòng kiểm tra lại.");
@@ -95,7 +98,7 @@ const App: React.FC = () => {
     <h2 className="text-center mb-4">Trò chơi Cờ vua</h2>
     <div className="d-flex flex-wrap justify-content-center align-items-start">
       <div className="col-lg-3 col-md-5 mb-3 d-flex justify-content-center">
-        <CopilotChat moveAsk={moveAsk} setMoveAsk={setMoveAsk} />
+        <CopilotChat moveAsk={moveAsk} setMoveAsk={setMoveAsk} isShortAns={isShortAns} setShortAns={setShortAns} allowAskAI={allowAskAI} setAllowAskAI={setAllowAskAI} />
       </div>
       <div className="col-lg-auto col-md-auto mb-3 d-flex flex-column align-items-center">
         <ChessBoard
