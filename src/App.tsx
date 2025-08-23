@@ -20,8 +20,14 @@ const App: React.FC = () => {
 
   const [selectedFrom, setSelectedFrom] = useState<SelectedSquare | null>(null);
   const [selectedTo, setSelectedTo] = useState<SelectedSquare | null>(null);
+  
+  // ✅ Thêm state mới cho thông báo lỗi
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const updateBoard = (from: string, to: string) => {
+    // ✅ Xóa thông báo lỗi cũ mỗi khi người dùng thực hiện nước đi mới
+    setErrorMessage(null);
+
     if (makeMove(from, to)) {
       setSelectedFrom(null);
       setSelectedTo(null);
@@ -48,13 +54,16 @@ const App: React.FC = () => {
         : (`Tôi, quân trắng, di chuyển quân từ ${from} tới ${to}`)
       );
     } else {
-      alert("Nước đi không hợp lệ. Vui lòng kiểm tra lại.");
+      // ✅ Thay thế alert() bằng việc cập nhật state lỗi
+      setErrorMessage("Nước đi không hợp lệ. Vui lòng kiểm tra lại.");
       setSelectedFrom(null);
       setSelectedTo(null);
     }
   };
 
   const handleSquareClick = (row: number, col: number) => {
+    // ✅ Xóa thông báo lỗi khi người dùng bắt đầu một lượt click mới
+    setErrorMessage(null);
     const chessCol = String.fromCharCode(65 + col).toLowerCase();
     const chessRow = 8 - row;
     const chessNotation = `${chessCol}${chessRow}`;
@@ -82,37 +91,40 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="container-fluid my-4">
-      <h2 className="text-center mb-4">Trò chơi Cờ vua</h2>
-      {/* ✅ Thay đổi quan trọng: Thay 'align-items-center' bằng 'align-items-start' */}
-      <div className="d-flex flex-wrap justify-content-center align-items-start">
-        <div className="col-lg-3 col-md-5 mb-3 d-flex justify-content-center">
-          <CopilotChat moveAsk={moveAsk} setMoveAsk={setMoveAsk} />
-        </div>
-        
-        <div className="col-lg-auto col-md-auto mb-3 d-flex flex-column align-items-center">
-          <ChessBoard
-            board={board}
-            onSquareClick={handleSquareClick}
-            selectedFrom={selectedFrom}
-            selectedTo={selectedTo}
+  <div className="container-fluid my-4">
+    <h2 className="text-center mb-4">Trò chơi Cờ vua</h2>
+    <div className="d-flex flex-wrap justify-content-center align-items-start">
+      <div className="col-lg-3 col-md-5 mb-3 d-flex justify-content-center">
+        <CopilotChat moveAsk={moveAsk} setMoveAsk={setMoveAsk} />
+      </div>
+      <div className="col-lg-auto col-md-auto mb-3 d-flex flex-column align-items-center">
+        <ChessBoard
+          board={board}
+          onSquareClick={handleSquareClick}
+          selectedFrom={selectedFrom}
+          selectedTo={selectedTo}
+        />
+        <div className="mt-4 text-center">
+          Lượt đi: {currentTurn === "w" ? "Trắng" : "Đen"}
+          <MoveInput
+            onMoveMade={updateBoard}
+            fromValue={selectedFrom?.chessNotation || ''}
+            toValue={selectedTo?.chessNotation || ''}
           />
-          <div className="mt-4 text-center">
-            Lượt đi: {currentTurn === "w" ? "Trắng" : "Đen"}
-            <MoveInput
-              onMoveMade={updateBoard}
-              fromValue={selectedFrom?.chessNotation || ''}
-              toValue={selectedTo?.chessNotation || ''}
-            />
-          </div>
         </div>
-        
-        <div className="col-lg-3 col-md-5 mb-3 d-flex justify-content-center">
+      </div>
+      {/* ✅ Bọc thông báo lỗi và bảng lịch sử vào một container Flexbox theo cột */}
+      <div className="col-lg-3 col-md-5 mb-3">
+        <div className="d-flex flex-column" style={{ width: '100%' }}>
+          <div className="mb-3 text-center" style={{ color: 'red', fontWeight: 'bold', height: "30px" }}>
+            {errorMessage}
+         </div>
           <HistoryTable moveHistory={moveHistory} />
         </div>
       </div>
     </div>
-  );
-};
+  </div>
+);
+}
 
 export default App;
