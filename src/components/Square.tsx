@@ -1,5 +1,4 @@
-/** 
- * @file src/components/Square.tsx 
+/** * @file src/components/Square.tsx 
  * @description Component Square đại diện cho một ô vuông trên bàn cờ vua.
  * Nó có thể chứa quân cờ và có thể được tô màu khác nhau tùy thuộc vào vị trí của nó.
  * @param row Số hàng của ô (0-7)
@@ -46,17 +45,18 @@ const Square: React.FC<SquareProps> = ({
     <div
       onClick={handleClick}
       style={{
-        width: 70,
-        height: 70,
+        flex: 1, // ✅ Quan trọng: Chiếm một phần bằng nhau trong hàng ngang
+        aspectRatio: '1 / 1', // ✅ Quan trọng: Giữ tỉ lệ chiều rộng/chiều cao là 1:1 (luôn là hình vuông)
         backgroundColor: backgroundColor, // Sử dụng màu đã xác định (có thể là highlight)
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         cursor: "pointer",
         border: "1px solid #888",
-        // Thêm hiệu ứng viền hoặc bóng đổ nhẹ khi được highlight để dễ nhìn hơn
+        boxSizing: 'border-box', // ✅ Quan trọng: Đảm bảo border không làm tăng kích thước ô
         boxShadow: isHighlighted ? '0 0 0 3px rgba(0, 0, 0, 0.5) inset' : 'none',
         transition: 'background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+        position: 'relative',
       }}
     >
       {children}

@@ -1,37 +1,54 @@
-/** 
- * @file Hiển thị quan cờ trong bàn cờ vua
- * @description Component này nhận vào loại quân cờ (type) và màu sắc (color) để hiển thị biểu tượng tương ứng.
- * @example <Piece type="p" color="w" /> // Hiển thị quân Tốt trắng
- * @example <Piece type="k" color="b" /> // Hiển thị quân Vua đen
- * @see pieceSymbols Đối tượng ánh xạ loại quân cờ với biểu tượng Unicode tương ứng.
-  */
-
 import React from "react";
 
 interface PieceProps {
   type: string;
-  color: "w" | "b"; // 'w' = trắng, 'b' = đen
+  color: "w" | "b";
+  font_size?: string;
 }
 
 const Piece: React.FC<PieceProps> = ({ type, color }) => {
-  const pieceSymbols: Record<string, string> = {
-    p: "♙", // Tốt
-    r: "♖", // Xe
-    n: "♘", // Mã
-    b: "♗", // Tượng
-    q: "♕", // Hậu
-    k: "♔", // Vua
+  const pieceFileNames: Record<string, string> = {
+    'p': 'pawn',
+    'r': 'rook',
+    'n': 'knight',
+    'b': 'bishop',
+    'q': 'queen',
+    'k': 'king'
+  };
+
+  const getImageSrc = () => {
+    const pieceName = pieceFileNames[type.toLowerCase()];
+    const folderName = color === "w" ? "white" : "black";
+    
+    if (!pieceName) {
+      console.error(`Không tìm thấy tên file cho loại quân cờ: ${type}`);
+      return "";
+    }
+
+    return require(`../../assets/${folderName}/${pieceName}.png`);
   };
 
   return (
     <div
       style={{
-        fontSize: 65,
-        fontWeight: "bold",
-        color: color === "w" ? "white" : "black",
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
-      {pieceSymbols[type] || "?"}
+      <img
+        src={getImageSrc()}
+        alt={`${color === 'w' ? 'Quân trắng' : 'Quân đen'} ${type}`}
+        style={{
+          maxWidth: '90%',
+          maxHeight: '90%',
+          width: 'auto',
+          height: 'auto',
+          objectFit: 'contain',
+        }}
+      />
     </div>
   );
 };

@@ -1,9 +1,8 @@
-/** 
- * @file Vẽ bàn cờ cờ vua với các ô và quân cờ
+/** * @file Vẽ bàn cờ cờ vua với các ô và quân cờ
  * @description Component này hiển thị bàn cờ với các ô và quân cờ tương ứng.
  * Mỗi ô được đại diện bởi component Square, và mỗi quân cờ được đại diện by component Piece.
  * Bàn cờ được hiển thị với chỉ số cột (A-H) và chỉ số dòng (1-8) để người dùng dễ dàng nhận biết vị trí của các quân cờ.
- * @returns {JSX.Element} Bàn cờ cờ vua với các ô và  quân cờ
+ * @returns {JSX.Element} Bàn cờ cờ vua với các ô và quân cờ
  */
 import React from "react";
 import Square from "./Square";
@@ -30,36 +29,46 @@ interface ChessBoardProps {
   selectedFrom: SelectedSquare | null;
   selectedTo: SelectedSquare | null;
 }
+
 const ChessBoard: React.FC<ChessBoardProps> = ({
   board,
   onSquareClick,
   selectedFrom,
   selectedTo,
 }) => {
+  const square_size = "10%";
+  const note_font_size = "3.5vmin";
+  const piece_font_size = "6vmin";
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-      {/* Hiển thị chỉ số cột (A-H) trên cùng */}
-      <div style={{ display: "flex" }}>
-        <div style={{ width: 30 }}></div> {/* Ô trống để căn chỉnh */}
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        maxWidth: "90vmin",
+        margin: "0 auto",
+      }}
+    >
+      {/* Hiển thị chỉ số cột (A-H) */}
+      <div style={{ display: "flex", width: "100%" }}>
+        <div style={{ width: square_size }}></div>
         {[...Array(8)].map((_, col) => (
-          <div key={`top-${col}`} style={{ width: 70, textAlign: "center", fontWeight: "bold" }}>
+          <div key={`top-${col}`} style={{ flex: 1, textAlign: "center", fontWeight: "bold", fontSize: note_font_size }}>
             {String.fromCharCode(65 + col)}
           </div>
         ))}
-        <div style={{ width: 30 }}></div> {/* Ô trống bên phải */}
+        <div style={{ width: square_size }}></div>
       </div>
-
-      {/* Hiển thị bàn cờ với chỉ số dòng và cột */}
+      
+      {/* Hiển thị bàn cờ */}
       {board.map((row, rowIndex) => (
-        <div key={rowIndex} style={{ display: "flex", alignItems: "center" }}>
-          {/* Hiển thị số dòng (1-8) bên trái */}
-          <div style={{ width: 30, textAlign: "center", fontWeight: "bold" }}>{8 - rowIndex}</div>
-
-          {/* Hiển thị các ô của bàn cờ */}
+        <div key={rowIndex} style={{ display: "flex", width: "100%" }}>
+          <div style={{ width: square_size, textAlign: "center", fontWeight: "bold", fontSize: note_font_size }}>
+            {8 - rowIndex}
+          </div>
+          
           {row.map((piece, colIndex) => {
-            // Xác định xem ô hiện tại có phải là ô selectedFrom hay selectedTo không
-            const isSelectedFrom =
-              selectedFrom?.row === rowIndex && selectedFrom?.col === colIndex;
+            const isSelectedFrom = selectedFrom?.row === rowIndex && selectedFrom?.col === colIndex;
             const isSelectedTo = selectedTo?.row === rowIndex && selectedTo?.col === colIndex;
 
             return (
@@ -67,30 +76,30 @@ const ChessBoard: React.FC<ChessBoardProps> = ({
                 key={`${rowIndex}-${colIndex}`}
                 row={rowIndex}
                 col={colIndex}
-                onClick={onSquareClick} // Truyền hàm onSquareClick xuống Square
-                // Thêm prop `isHighlighted` cho `Square` để làm nổi bật ô
+                onClick={onSquareClick}
                 isHighlighted={isSelectedFrom || isSelectedTo}
-                highlightColor={isSelectedFrom ? 'yellow' : 'blue'} // Màu highlight khác nhau cho from/to
+                highlightColor={isSelectedFrom ? 'yellow' : 'blue'}
               >
-                {piece && <Piece type={piece.type} color={piece.color} />}
+                {piece && <Piece type={piece.type} color={piece.color} font_size={piece_font_size}/>}
               </Square>
             );
           })}
-
-          {/* Hiển thị số dòng (1-8) bên phải */}
-          <div style={{ width: 30, textAlign: "center", fontWeight: "bold" }}>{8 - rowIndex}</div>
+          
+          <div style={{ width: square_size, textAlign: "center", fontWeight: "bold", fontSize: note_font_size }}>
+            {8 - rowIndex}
+          </div>
         </div>
       ))}
-
-      {/* Hiển thị chỉ số cột (A-H) bên dưới */}
-      <div style={{ display: "flex" }}>
-        <div style={{ width: 30 }}></div> {/* Ô trống bên trái */}
+      
+      {/* ... chỉ số dưới cùng ... */}
+      <div style={{ display: "flex", width: "100%" }}>
+        <div style={{ width: square_size }}></div>
         {[...Array(8)].map((_, col) => (
-          <div key={`bottom-${col}`} style={{ width: 70, textAlign: "center", fontWeight: "bold" }}>
+          <div key={`bottom-${col}`} style={{ flex: 1, textAlign: "center", fontWeight: "bold", fontSize: note_font_size }}>
             {String.fromCharCode(65 + col)}
           </div>
         ))}
-        <div style={{ width: 30 }}></div> {/* Ô trống bên phải */}
+        <div style={{ width: square_size }}></div>
       </div>
     </div>
   );
